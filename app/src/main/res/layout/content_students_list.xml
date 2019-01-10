@@ -8,7 +8,6 @@
     tools:context=".StudentsList"
     tools:showIn="@layout/activity_students_list">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvStudents"
         android:layout_width="match_parent"
