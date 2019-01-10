@@ -31,4 +31,13 @@
         app:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_add" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_delete_forever" />
+
 </android.support.design.widget.CoordinatorLayout>

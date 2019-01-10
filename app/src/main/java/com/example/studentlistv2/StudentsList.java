@@ -8,6 +8,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 
 public class StudentsList extends AppCompatActivity {
 
-    FloatingActionButton btnPlus;
+    FloatingActionButton btnPlus, btnRemove;
     RecyclerView rvStudents;
     StudentAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
@@ -50,10 +53,23 @@ public class StudentsList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDB.deleteAll();
+                adapter.notifyDataSetChanged();
+
+                // ¯\_(ツ)_/¯
+                Intent intent = new Intent(StudentsList.this, StudentsList.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initView() {
         btnPlus = findViewById(R.id.btnPlus);
+        btnRemove = findViewById(R.id.btnRemove);
         studentsList = new ArrayList<>();
         myDB = new MyDatabase(StudentsList.this);
         cursor = myDB.getData();

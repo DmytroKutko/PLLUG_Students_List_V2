@@ -3,6 +3,9 @@ package com.example.studentlistv2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +38,7 @@ public class AddStudent extends AppCompatActivity {
     }
 
 
-    void initView(){
+    void initView() {
         etName = findViewById(R.id.etName);
         etSurname = findViewById(R.id.etSurname);
         etGroup = findViewById(R.id.etGroup);
@@ -46,7 +49,7 @@ public class AddStudent extends AppCompatActivity {
         studentsList = new ArrayList<>();
     }
 
-    void initListener(){
+    void initListener() {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +75,7 @@ public class AddStudent extends AppCompatActivity {
                     etGroup.setText("");
                     etUniversity.setText("");
 
-                    Toast.makeText(AddStudent.this, "Student " + student.getName() +" added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddStudent.this, "Student " + student.getName() + " added", Toast.LENGTH_SHORT).show();
                 }
 
                 Intent intent = new Intent(AddStudent.this, StudentsList.class);
