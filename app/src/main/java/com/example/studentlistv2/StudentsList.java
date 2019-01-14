@@ -99,5 +99,21 @@ public class StudentsList extends AppCompatActivity {
         adapter = new StudentAdapter(this, studentsList);
         adapter.notifyDataSetChanged();
         rvStudents.setAdapter(adapter);
+        adapter.setOnItemClickListener(new StudentAdapter.OnItemClickListener() {
+            @Override
+            public void onClickListener(int position) {
+                int id = studentsList.get(position).getId();
+                String name = studentsList.get(position).getName();
+                Toast.makeText(context, id + " - " + name, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                int id = studentsList.get(position).getId();
+                studentsList.remove(position);
+                myDB.deleteById(id);
+                adapter.notifyItemRemoved(position);
+            }
+        });
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.studentlistv2.R;
 import com.example.studentlistv2.model.Student;
@@ -16,8 +17,17 @@ import java.util.ArrayList;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder> {
     private ArrayList<Student> list;
+    private OnItemClickListener mListener;
     Context context;
 
+    public interface OnItemClickListener {
+        void onClickListener(int position);
+        void onDeleteClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public StudentAdapter(Context context, ArrayList<Student> list) {
         this.list = list;
@@ -29,7 +39,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.card_view_student, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mListener);
     }
 
     @Override
@@ -50,7 +60,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         TextView tvName, tvSurname, tvGroup, tvUniversity;
         ImageButton ibDelete;
 
-        public ViewHolder(@NonNull final View itemView) {
+        public ViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             tvName = itemView.findViewById(R.id.tvName);
@@ -59,6 +69,30 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
             tvUniversity = itemView.findViewById(R.id.tvUniversity);
 
             ibDelete = itemView.findViewById(R.id.ibDelete);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onClickListener(position);
+                        }
+                    }
+                }
+            });
+
+            ibDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }
