@@ -35,7 +35,7 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     }
 
-    public void insertData(Student student){
+    public void insertData(Student student) {
 
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -48,26 +48,42 @@ public class MyDatabase extends SQLiteOpenHelper {
         database.insert(TABLE_NAME, null, contentValues);
     }
 
-    public Cursor getData(){
+    public Cursor getData() {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
         return cursor;
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.execSQL("DELETE FROM " + TABLE_NAME );
+        database.execSQL("DELETE FROM " + TABLE_NAME);
     }
 
-    public void deleteById(int id){
+    public void deleteById(int id) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COL1 + " = " + id);
     }
 
-    public Cursor getDataById(int id){
+    public Cursor getDataById(int id) {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + " = " + id, null);
         return cursor;
+    }
+
+    public void updateStudent(Student student) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        int id = student.getId();
+        String name = student.getName();
+        String surname = student.getSurname();
+        String group = student.getGroup();
+        String university = student.getUniversity();
+        database.execSQL("UPDATE " + TABLE_NAME + " SET " +
+                COL2 + " = " + name + " , " +
+                COL3 + " = " + surname + " , " +
+                COL4 + " = " + group + " , " +
+                COL5 + " = " + university +
+                " WHERE " + COL1 + " = " + id
+        );
     }
 }

@@ -97,8 +97,9 @@ public class StudentsList extends AppCompatActivity {
             @Override
             public void onClickListener(int position) {
                 int id = studentsList.get(position).getId();
-                String name = studentsList.get(position).getName();
-                Toast.makeText(context, id + " - " + name, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(StudentsList.this, UpdateStudent.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
             }
 
             @Override
