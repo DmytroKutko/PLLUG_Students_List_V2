@@ -8,9 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -58,11 +55,8 @@ public class StudentsList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 myDB.deleteAll();
+                studentsList.clear();
                 adapter.notifyDataSetChanged();
-
-                // ¯\_(ツ)_/¯
-                Intent intent = new Intent(StudentsList.this, StudentsList.class);
-                startActivity(intent);
             }
         });
     }
